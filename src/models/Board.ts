@@ -6,9 +6,12 @@ import { Queen } from './figures/Queen';
 import { Pawn } from './figures/Pawn';
 import { Colors } from './Colors';
 import { Cell } from "./Cell";
+import { Figure } from './figures/Figure';
 
 export class Board {
-  cells: Cell[][] = []
+  cells: Cell[][] = [];
+  lostBlackFigures: Figure[] = [];
+  lostWhiteFigures: Figure[] = [];
 
   public initCells() {
     for (let i = 0; i < 8; i++) {
@@ -22,9 +25,12 @@ export class Board {
     }
   }
 
+  // use deepcopy from lodash
   public getCopyBoard(): Board {
     const newBoard = new Board();
     newBoard.cells = this.cells;
+    newBoard.lostBlackFigures = this.lostBlackFigures;
+    newBoard.lostWhiteFigures = this.lostWhiteFigures;
     return newBoard;
   }
 
