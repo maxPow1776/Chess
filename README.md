@@ -1,6 +1,5 @@
 # Chess
 ## Development plans
-- **Add movement logic for the king**
 - **Add game restart when timer expires**
 - **Add checkmate**
 - Add move history and undo/redo options
@@ -11,3 +10,5 @@
 - Fix all comments
 - Add theme change
 - Put the project on github pages
+## Completed tasks
+- **Add movement logic for the king**
