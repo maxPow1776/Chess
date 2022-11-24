@@ -4,13 +4,14 @@ import { Player } from "../models/Player";
 
 interface TimerProps {
   currentPlayer: Player | null,
-  restart: () => void
+  time: number,
+  restart: () => void,
+  setLoser: (loser: null | Colors) => void,
 }
 
-const Timer: FC<TimerProps> = ({currentPlayer, restart}) => {
-  // add the ability to set the time
-  const [blackTime, setBlackTime] = useState(300);
-  const [whireTime, setWhiteTime] = useState(300);
+const Timer: FC<TimerProps> = ({currentPlayer, restart, time, setLoser}) => {
+  const [blackTime, setBlackTime] = useState(time);
+  const [whiteTime, setWhiteTime] = useState(time);
   const timer = useRef<null | ReturnType<typeof setInterval>>(null);
 
   const startTimer = () => {
@@ -31,8 +32,11 @@ const Timer: FC<TimerProps> = ({currentPlayer, restart}) => {
   }
 
   const handleRestart = () => {
-    setWhiteTime(300);
-    setBlackTime(300);
+    if (timer.current) {
+      clearInterval(timer.current);
+    }
+    setWhiteTime(time);
+    setBlackTime(time);
     restart();
   }
 
@@ -40,13 +44,23 @@ const Timer: FC<TimerProps> = ({currentPlayer, restart}) => {
     startTimer();
   }, [currentPlayer])
 
+  useEffect(() => {
+    if (!whiteTime || !blackTime) {
+      if (timer.current) {
+        clearInterval(timer.current);
+      }
+      setLoser(currentPlayer?.color ? currentPlayer.color : null);
+      restart();
+    }
+  }, [whiteTime, blackTime])
+
   return (
     <div>
       <div>
         <button onClick={handleRestart}>Restart game</button>
       </div>
       <h2>Black - {blackTime}</h2>
-      <h2>White - {whireTime}</h2>
+      <h2>White - {whiteTime}</h2>
     </div>
   )
 };

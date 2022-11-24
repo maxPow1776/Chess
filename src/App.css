@@ -3,7 +3,7 @@
   padding: 0;
 }
 
-.app {
+.game {
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -55,4 +55,22 @@
   padding: 30px;
   margin-left: 50px;
   background-color: lightgray;
+}
+
+.modal {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 400px auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 400px;
 }
